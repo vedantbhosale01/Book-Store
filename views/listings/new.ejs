@@ -1,0 +1,64 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+    <div class="row">
+        <div class="col-8 offset-2">
+            <br><br>
+        <h3>Create A New Listing</h3>
+            <form method="post" action="/listings" novalidate class="needs-validation">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                <input type="text" name="listing[title]" id="title" required class="form-control" placeholder="Enter Title">
+                
+                <div class="valid-feedback">
+                    Title Looks Good!
+                </div>
+                <div class="invalid-feedback">
+                    Please Enter A Valid Title!
+                </div>
+            
+            </div>
+                
+            <div class="mb-3">
+                <label for="description" class="form-label">Author</label>
+                <textarea name="listing[author]" placeholder="Enter Author Name" required class="form-control"></textarea>
+                <div class="invalid-feedback">
+                    Please Enter A Valid Author Name!
+                </div>
+            
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Book Image</label>
+                        <input name="listing[image]" type="text" placeholder="Enter Image URL" class="form-control">
+                
+            </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input name="listing[price]" id="price" required class="form-control">
+                    <div class="invalid-feedback">
+                        Please Enter A Valid Price!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label">Publisher</label>
+                    <input type="text" name="listing[publisher]" id="location" required class="form-control">
+                    <div class="invalid-feedback">
+                        Please Enter A Valid Publisher Name!
+                    </div>
+                
+                </div>
+                <div class="mb-3">
+                    <label for="country" class="form-label">ISBN</label>
+                    <input type="text" name="listing[isbn]" id="country" required class="form-control">
+                    <div class="invalid-feedback">
+                        Please Enter Valid ISBN!
+                    </div>
+                
+                </div>
+               <button class="btn btn-dark add-btn">Create Listing</button>
+               <br><br>
+            </form>
+        </div>
+    </div>
+   
+</body>
+</html>
