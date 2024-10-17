@@ -20,7 +20,7 @@ router.post("/signup",wrapAsync(async(req,res)=>{
         if(err){
             return next(err);  
         }
-        req.flash("success","Welcome To WanderLust!");
+        req.flash("success","Welcome To ShelfMaster!");
         res.redirect("/listings");
     })
   
