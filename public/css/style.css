@@ -6,6 +6,9 @@ body{
     min-height: 100vh;
 }
 
+.navbar-collapse {
+    background-color: white; /* Or any other color that matches your design */
+}
 
 .container
 {
