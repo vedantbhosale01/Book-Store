@@ -14,10 +14,11 @@ app.use(express.urlencoded({extended:true}));
 const methodOverride=require("method-override");
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname,"/public")));
-const session=require("express-session");
 const reviewRouter=require("./routes/review.js");
 const userRouter=require("./routes/user.js");
 const flash=require("connect-flash");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 require('dotenv').config();
 
 async function main(){
@@ -30,15 +31,18 @@ main().then(()=>{
     console.log(err);
 });
 
-
-const sessionOptions={
-    secret:"mysupersecretcode",
+const sessionOptions = {
+    secret: "mysupersecretcode",
     resave: false,
-    saveUninitialized:true,
-    cookie:{
-        expires:Date.now()+7*24*60*60*1000,
-        maxAge: 7*24*60*60*1000,
-        httpOnly:true
+    saveUninitialized: true,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI, // Use your MongoDB connection string
+        collectionName: "sessions" // Name of the collection to store sessions
+    }),
+    cookie: {
+        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        httpOnly: true
     }
 };
 
