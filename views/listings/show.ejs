@@ -25,14 +25,27 @@
                         <form method="post" action="/listings/<%= listing._id %>/delete?_method=DELETE" class="me-2 mb-2 mb-sm-0">
                             <button class="btn btn-dark">Delete</button>
                         </form>
-                        <% if (currUser) { %>
-                            <form id="paymentForm" method="POST">
-                                <input type="hidden" name="amount" value="<%= listing.price %>">
-                                <input type="hidden" name="name" value="<%= listing.title %>">
-                                <input type="hidden" name="description" value="<%= listing.description %>">
-                                <button type="submit" class="btn btn-dark">Buy Now!</button>
-                            </form>
-                        <% } %>
+                        <form id="paymentForm" method="POST">
+                            <input type="hidden" name="amount" value="<%= listing.price %>">
+                            <input type="hidden" name="name" value="<%= listing.title %>">
+                            <input type="hidden" name="description" value="<%= listing.description %>">
+                            <button type="submit" class="btn btn-dark">Buy Now!</button>
+                        </form>
+                      
+                    </div>
+                </div>
+            <% } %>
+
+            <% if (currUser && !(currUser._id.equals(listing.owner._id))) { %>
+                <div class="btns d-flex justify-content-start mt-3 offset-3">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <form id="paymentForm" method="POST">
+                            <input type="hidden" name="amount" value="<%= listing.price %>">
+                            <input type="hidden" name="name" value="<%= listing.title %>">
+                            <input type="hidden" name="description" value="<%= listing.description %>">
+                            <button type="submit" class="btn btn-dark">Buy Now!</button>
+                        </form>
+                      
                     </div>
                 </div>
             <% } %>
@@ -42,7 +55,7 @@
             <div class="col-8 offset-3 mb-3 mt-3">
                 <% if(currUser) {%>
                 <h4>Leave A Review</h4>
-                <form action="/listings/<%=listing.id%>/reviews" method="post" novalidate class="needs-validation">
+                <form action="/listings/<%=listing._id%>/reviews" method="post" novalidate class="needs-validation">
                     <div class="mb-3 mt-3">
                         <label for="rating" class="form-label">Rating</label>
                         <input type="range" class="form-range" min="1" max="5" id="rating" name="review[rating]">
