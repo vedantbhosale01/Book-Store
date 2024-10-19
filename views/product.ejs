@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Razorpay Web-Integration</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Payment for Listing ID: <%= id._id %></h1>
+
+<form id="paymentForm" action="/createOrder" method="POST">
+    <input type="hidden" name="amount" value="<%= id.price%>"> <!-- Amount in smallest currency unit -->
+    <input type="hidden" name="name" value="<%= id.title %>"> <!-- Use the correct name from the listing -->
+    <input type="hidden" name="description" value="<%= id.description %>"> <!-- Use the correct description -->
+    <input type="hidden" name="listingId" value="<%= id._id %>"> <!-- Pass listing ID -->
+    <button type="submit">Pay Now</button>
+</form>
+
+</body>
+</html>
+
+
+<!--Inside index.html -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+
+$(document).ready(function() {
+    $('#paymentForm').submit(function(e) {
+        e.preventDefault(); // Prevent the default form submission
+        var formData = $(this).serialize();
+
+        $.ajax({
+            url: "/createOrder",
+            type: "POST",
+            data: formData,
+            success: function(res) {
+                if (res.success) {
+                    var options = {
+                        "key": res.key_id,
+                        "amount": res.amount,
+                        "currency": "INR",
+                        "name": res.product_name,
+                        "description": res.description,
+                        "order_id": res.order_id,
+                        "handler": function(response) {
+                            alert("Payment Succeeded");
+                        },
+                        "prefill": {
+                            "contact": res.contact,
+                            "name": res.name,
+                            "email": res.email
+                        },
+                        "theme": {
+                            "color": "#2300a3"
+                        }
+                    };
+                    var razorpayObject = new Razorpay(options);
+                    razorpayObject.open();
+                } else {
+                    alert(res.msg);
+                }
+            },
+            error: function(err) {
+                console.error(err);
+                alert("Something went wrong.");
+            }
+        });
+    });
+});
+
+
+
+</script>

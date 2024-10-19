@@ -19,6 +19,7 @@ const userRouter=require("./routes/user.js");
 const flash=require("connect-flash");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const paymentRoutes = require('./routes/paymentRoute');
 require('dotenv').config();
 
 async function main(){
@@ -66,6 +67,9 @@ app.use((req,res,next)=>{
 app.use("/listings",listingRouter);
 app.use("/listings/:id/reviews",reviewRouter);
 app.use("/",userRouter);
+
+app.use(paymentRoutes);
+
 
 
 
