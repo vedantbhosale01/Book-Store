@@ -19,6 +19,7 @@ A full-stack web application for managing book listings with functionalities for
 - **Database:** MongoDB Atlas
 - **Authentication:** Passport.js
 - **Deployment:** Vercel
+- **Payment Gateway:** Razorpay
 - **Other Packages:** Express-session, Method-override, Connect-flash, EJS
 
 ## Features
@@ -41,6 +42,8 @@ A full-stack web application for managing book listings with functionalities for
 Create a .env file in the root directory and add your MongoDB connection string:
 ```
 MONGO_URI=your_mongodb_connection_string
+RAZORPAY_ID_KEY="YOUR_KEY"
+RAZORPAY_SECRET_KEY="YOUR_KEY"
 ```
 Start the server:
 ```
